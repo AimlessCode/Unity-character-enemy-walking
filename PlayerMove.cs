@@ -2,34 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMove : MonoBehaviour
 {
-   Rigidbody rb;
-    [SerializeField] float movementSpeed = 6f;
-    [SerializeField] float jumpForce = 5f;
+    int moveS = 10;
+    int jumpSpt = 10;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();  
-    }
 
-    // Update is called once per frame
+    
     void Update()
-    {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+  {
 
-        rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
+        transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime* moveS,
+            0f, Input.GetAxis("Vertical") * Time.deltaTime* moveS);
+        
+        
 
-        if (Input.GetButtonDown("Jump"))
+
+        if (Input.GetKey("space"))
         {
-
-            rb.velocity =  new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-
+            GetComponent<Rigidbody>().AddForce(Vector3.up* jumpSpt, ForceMode.Acceleration);
 
         }
 
-        
+
+
+
+
     }
 }
